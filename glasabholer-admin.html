@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>GlasAbholer Admin</title>
+  <meta name="robots" content="noindex,nofollow"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --c-white:#FFFFFF;--c-bg:#F5F5F7;--c-ink:#1C1C1E;--c-ink2:#3A3A3C;
+  --c-muted:#86868B;--c-teal:#00B5A6;--c-teal-d:#009E90;--c-teal-l:#E0F7F5;
+  --c-border:#E5E5EA;--c-red:#FF3B30;--c-red-l:#FFF1F0;
+  --c-green:#34C759;--c-green-l:#E8FFF0;--c-orange:#FF9500;--c-orange-l:#FFF3E0;
+  --f-head:'Bricolage Grotesque',sans-serif;--f-body:'DM Sans',sans-serif;
+  --r:10px;--r-lg:16px;--r-xl:22px;
+  --sh:0 2px 16px rgba(0,0,0,.06);--sh-lg:0 8px 40px rgba(0,0,0,.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f-body);background:#f1f5f9;color:var(--c-ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+button{cursor:pointer;font-family:inherit;border:none}
+a{color:inherit;text-decoration:none}
+
+/* LOGIN */
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--c-ink)}
+.login-card{background:var(--c-white);border-radius:var(--r-xl);padding:48px 40px;width:100%;max-width:380px;box-shadow:var(--sh-lg)}
+.login-logo{font-family:var(--f-head);font-size:1.3rem;font-weight:800;color:var(--c-teal);text-align:center;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:8px}
+.login-logo-dot{width:32px;height:32px;background:var(--c-teal);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.login-sub{text-align:center;font-size:.85rem;color:var(--c-muted);margin-bottom:32px}
+.login-card label{display:block;font-size:.8rem;font-weight:600;margin-bottom:6px;color:var(--c-ink2)}
+.login-card input{width:100%;border:1.5px solid var(--c-border);border-radius:var(--r);padding:12px 14px;font-family:var(--f-body);font-size:.95rem;outline:none;transition:border-color .2s}
+.login-card input:focus{border-color:var(--c-teal)}
+.login-btn{margin-top:18px;width:100%;background:var(--c-teal);color:#fff;border-radius:var(--r);padding:13px;font-size:1rem;font-weight:600;transition:background .2s}
+.login-btn:hover{background:var(--c-teal-d)}
+.login-err{margin-top:10px;color:var(--c-red);font-size:.82rem;text-align:center;display:none}
+
+/* SHELL */
+.shell{display:none;flex-direction:column;min-height:100vh}
+.top-bar{background:var(--c-ink);height:58px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.top-bar-logo{font-family:var(--f-head);font-weight:800;font-size:1rem;color:#fff;display:flex;align-items:center;gap:8px}
+.top-bar-logo em{background:rgba(0,181,166,.2);color:var(--c-teal);border-radius:5px;padding:2px 8px;font-style:normal;font-size:.7rem;letter-spacing:.06em}
+.btn-logout{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border-radius:7px;padding:7px 16px;font-size:.8rem;font-weight:600;transition:background .2s}
+.btn-logout:hover{background:rgba(255,255,255,.15)}
+.page{flex:1;padding:32px 28px;max-width:1140px;width:100%;margin:0 auto}
+
+/* TABS */
+.tabs{display:flex;gap:3px;background:var(--c-white);border-radius:var(--r);padding:4px;box-shadow:var(--sh);width:fit-content;margin-bottom:28px;flex-wrap:wrap}
+.tab{border-radius:8px;padding:9px 18px;font-size:.83rem;font-weight:600;color:var(--c-muted);background:none;transition:all .2s}
+.tab.on{background:var(--c-teal);color:#fff}
+
+/* CARDS */
+.card{background:var(--c-white);border-radius:var(--r-xl);padding:26px 26px;box-shadow:var(--sh);margin-bottom:20px;border:1px solid var(--c-border)}
+.card-head{margin-bottom:18px}
+.card-title{font-family:var(--f-head);font-size:1rem;font-weight:800;color:var(--c-ink)}
+.card-sub{font-size:.82rem;color:var(--c-muted);margin-top:3px}
+
+/* STATS */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:24px}
+.stat{background:var(--c-white);border-radius:var(--r-lg);padding:18px 20px;box-shadow:var(--sh);border:1px solid var(--c-border)}
+.stat-n{font-family:var(--f-head);font-size:1.9rem;font-weight:800;color:var(--c-teal)}
+.stat-l{font-size:.76rem;color:var(--c-muted);font-weight:600;margin-top:2px}
+
+/* BUTTONS */
+.btn{border-radius:8px;padding:7px 13px;font-size:.78rem;font-weight:600;transition:all .2s}
+.btn-teal{background:var(--c-teal);color:#fff}
+.btn-teal:hover{background:var(--c-teal-d)}
+.btn-red{background:var(--c-red-l);color:var(--c-red)}
+.btn-red:hover{background:#ffd6d3}
+.btn-green{background:var(--c-green-l);color:var(--c-green)}
+.btn-del{background:var(--c-bg);color:var(--c-muted);padding:5px 9px;margin-left:4px}
+.btn-del:hover{background:var(--c-red-l);color:var(--c-red)}
+.btn-unbook{background:var(--c-teal-l);color:var(--c-teal);padding:5px 11px}
+.btn-unbook:hover{background:var(--c-teal);color:#fff}
+.btn-save-main{background:var(--c-teal);color:#fff;border-radius:var(--r);padding:11px 26px;font-size:.9rem;font-weight:600;transition:all .2s}
+.btn-save-main:hover{background:var(--c-teal-d)}
+.btn-danger{background:var(--c-red-l);color:var(--c-red);border-radius:var(--r);padding:9px 16px;font-size:.82rem;font-weight:600}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--c-muted);padding:9px 12px;text-align:left;border-bottom:2px solid var(--c-border)}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--c-bg);font-size:.875rem;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:#FAFAFA}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 11px;font-size:.72rem;font-weight:700}
+.badge-on{background:var(--c-green-l);color:var(--c-green)}
+.badge-off{background:var(--c-bg);color:var(--c-muted)}
+.badge-booked{background:var(--c-teal-l);color:var(--c-teal)}
+
+/* ADD ROW */
+.add-row{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.add-row.hidden{display:none}
+.add-inp{border:1.5px solid var(--c-border);border-radius:var(--r);padding:8px 12px;font-family:var(--f-body);font-size:.875rem;width:145px;outline:none}
+.add-inp:focus{border-color:var(--c-teal)}
+.add-hint{font-size:.76rem;color:var(--c-muted)}
+
+/* DAY */
+.day-wrap{margin-bottom:26px}
+.day-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px}
+.day-name{font-family:var(--f-head);font-size:.95rem;font-weight:800;color:var(--c-teal)}
+.day-btns{display:flex;gap:7px;flex-wrap:wrap}
+
+/* SETTINGS FIELDS */
+.sf{margin-bottom:18px}
+.sf label{display:block;font-size:.8rem;font-weight:600;margin-bottom:6px;color:var(--c-ink2)}
+.sf input,.sf select,.sf textarea{border:1.5px solid var(--c-border);border-radius:var(--r);padding:10px 14px;font-family:var(--f-body);font-size:.9rem;width:100%;max-width:400px;outline:none;appearance:none}
+.sf input:focus,.sf select:focus{border-color:var(--c-teal)}
+.save-ok{color:var(--c-green);font-size:.82rem;margin-left:12px;display:none;font-weight:600}
+.divider{border:none;border-top:1px solid var(--c-border);margin:28px 0}
+
+/* SERVICE EDITOR */
+.svc-editor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px}
+.svc-editor-card{border:1.5px solid var(--c-border);border-radius:var(--r-lg);padding:20px;position:relative;background:var(--c-white)}
+.svc-editor-card.is-active{border-color:var(--c-teal)}
+.svc-ed-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.svc-ed-emoji{font-size:1.5rem}
+.svc-ed-title{font-family:var(--f-head);font-size:.95rem;font-weight:800}
+.svc-ed-field{margin-bottom:10px}
+.svc-ed-field label{font-size:.76rem;font-weight:600;color:var(--c-muted);display:block;margin-bottom:4px}
+.svc-ed-field input,.svc-ed-field select{width:100%;border:1.5px solid var(--c-border);border-radius:8px;padding:8px 10px;font-family:var(--f-body);font-size:.875rem;outline:none;appearance:none}
+.svc-ed-field input:focus,.svc-ed-field select:focus{border-color:var(--c-teal)}
+.svc-toggle{display:flex;align-items:center;gap:8px;margin-top:10px}
+.svc-toggle input[type=checkbox]{width:16px;height:16px;accent-color:var(--c-teal)}
+.svc-toggle label{font-size:.82rem;font-weight:600;color:var(--c-ink2)}
+
+/* STADTTEILE EDITOR */
+.stadtteil-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.stadtteil-chip{background:var(--c-teal-l);color:var(--c-teal);border-radius:999px;padding:5px 12px;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:6px}
+.stadtteil-chip button{background:none;border:none;color:var(--c-teal);font-size:.9rem;cursor:pointer;line-height:1;padding:0;margin:0}
+.stadtteil-chip button:hover{color:var(--c-red)}
+.add-stadtteil-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.add-stadtteil-inp{border:1.5px solid var(--c-border);border-radius:var(--r);padding:8px 14px;font-family:var(--f-body);font-size:.875rem;width:220px;outline:none}
+.add-stadtteil-inp:focus{border-color:var(--c-teal)}
+
+/* EMPTY */
+.empty{text-align:center;padding:48px;color:var(--c-muted)}
+.empty-ico{font-size:2.5rem;margin-bottom:10px}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--c-ink);color:#fff;border-radius:10px;padding:12px 22px;font-size:.875rem;font-weight:600;opacity:0;pointer-events:none;transition:all .3s;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hidden{display:none!important}
+@media(max-width:600px){.page{padding:16px 12px}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-card">
+    <div class="login-logo"><div class="login-logo-dot">♻️</div>GlasAbholer</div>
+    <p class="login-sub">Admin · glasabholer.de</p>
+    <label for="pw">Passwort</label>
+    <input type="password" id="pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"/>
+    <div class="login-err" id="login-err">Falsches Passwort.</div>
+    <button class="login-btn" onclick="login()">Einloggen →</button>
+  </div>
+</div>
+
+<!-- SHELL -->
+<div class="shell" id="shell">
+  <div class="top-bar">
+    <div class="top-bar-logo">♻️ GlasAbholer <em>ADMIN</em></div>
+    <button class="btn-logout" onclick="logout()">Ausloggen</button>
+  </div>
+
+  <div class="page">
+    <div class="tabs">
+      <button class="tab on" onclick="showTab('slots',this)">📅 Slots</button>
+      <button class="tab" onclick="showTab('services',this)">🛠 Services</button>
+      <button class="tab" onclick="showTab('stadtteile',this)">📍 Stadtteile</button>
+      <button class="tab" onclick="showTab('bookings',this)">📋 Buchungen</button>
+      <button class="tab" onclick="showTab('settings',this)">⚙️ Einstellungen</button>
+    </div>
+
+    <!-- SLOTS -->
+    <div id="tab-slots">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Abholslots verwalten</div><div class="card-sub">Slots aktivieren, deaktivieren oder hinzufügen. Die Slot-Dauer wird unter ⚙️ Einstellungen festgelegt.</div></div>
+        <div id="slot-mgr"></div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <div id="tab-services" class="hidden">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Services konfigurieren</div><div class="card-sub">Lege fest welche Services angeboten werden, den Preis und die maximale Menge in Kisten.</div></div>
+        <div class="svc-editor-grid" id="svc-editor"></div>
+        <button class="btn-save-main" onclick="saveServices()">Services speichern</button>
+        <span class="save-ok" id="svc-ok">✓ Gespeichert & auf Website aktiv</span>
+      </div>
+    </div>
+
+    <!-- STADTTEILE -->
+    <div id="tab-stadtteile" class="hidden">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Verfügbare Stadtteile</div><div class="card-sub">Wähle welche Hamburger Stadtteile im Buchungsformular zur Auswahl stehen.</div></div>
+        <div class="stadtteil-grid" id="stadtteil-chips"></div>
+        <div class="add-stadtteil-row">
+          <input class="add-stadtteil-inp" id="new-stadtteil" placeholder="Neuen Stadtteil eingeben …" onkeydown="if(event.key==='Enter')addStadtteil()"/>
+          <button class="btn btn-teal" onclick="addStadtteil()">+ Hinzufügen</button>
+        </div>
+        <div style="margin-top:20px">
+          <button class="btn-save-main" onclick="saveStadtteile()">Stadtteile speichern</button>
+          <span class="save-ok" id="st-ok">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKINGS -->
+    <div id="tab-bookings" class="hidden">
+      <div class="stat-row" id="stats"></div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Alle Buchungen</div><div class="card-sub">Übersicht aller eingegangenen Buchungsanfragen.</div></div>
+        <div id="bookings-list"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="tab-settings" class="hidden">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Einstellungen</div></div>
+
+        <div class="sf">
+          <label>Slot-Dauer (Zeitfenster pro Buchung)</label>
+          <select id="slot-dur">
+            <option value="30">30 Minuten</option>
+            <option value="60" selected>1 Stunde</option>
+            <option value="120">2 Stunden</option>
+            <option value="180">3 Stunden</option>
+          </select>
+        </div>
+        <div class="sf">
+          <label>WhatsApp-Nummer (Format: 491751234567)</label>
+          <input type="text" id="wa-num" placeholder="49XXXXXXXXXXX"/>
+        </div>
+        <div class="sf">
+          <label>Ziel-E-Mail für Buchungsbenachrichtigungen</label>
+          <input type="email" id="target-email" placeholder="altglas@dominik-sothmann.de"/>
+        </div>
+        <div class="sf">
+          <label>Neues Admin-Passwort (leer lassen = unverändert)</label>
+          <input type="password" id="new-pw" placeholder="••••••••"/>
+        </div>
+        <button class="btn-save-main" onclick="saveSettings()">Einstellungen speichern</button>
+        <span class="save-ok" id="set-ok">✓ Gespeichert</span>
+
+        <hr class="divider"/>
+        <div class="card-title" style="color:var(--c-red);margin-bottom:6px">Gefahrenzone</div>
+        <div class="card-sub" style="margin-bottom:16px">Diese Aktionen können nicht rückgängig gemacht werden.</div>
+        <button class="btn-danger" onclick="clearBookings()" style="margin-right:10px">Alle Buchungen löschen</button>
+        <button class="btn-danger" onclick="resetSlots()">Slots zurücksetzen</button>
+        <button class="btn-danger" onclick="resetConfig()" style="margin-top:8px;display:block">Config zurücksetzen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── KEYS ──────────────────────────────────────────────
+const SK='ga_slots',BK='ga_bookings',CK='ga_config',PK='ga_pw',WK='ga_wa',EK='ga_email',DK='ga_dur';
+const DEFAULT_PW='glasabholer2025';
+const DAYS=['Mo','Di','Mi','Do','Fr','Sa'];
+const DN={Mo:'Montag',Di:'Dienstag',Mi:'Mittwoch',Do:'Donnerstag',Fr:'Freitag',Sa:'Samstag'};
+
+// ── CONFIG ────────────────────────────────────────────
+function getConfig(){try{return JSON.parse(localStorage.getItem(CK))||defConfig();}catch(e){return defConfig();}}
+function saveConfig(c){localStorage.setItem(CK,JSON.stringify(c));}
+function defConfig(){
+  return{
+    services:[
+      {id:'altglas',  label:'Altglas',      emoji:'🍾',price:'5 €',     free:false,maxKisten:10,desc:'Weinflaschen, Gläser, Konserven',active:true},
+      {id:'altpapier',label:'Altpapier',     emoji:'📦',price:'3 €',     free:false,maxKisten:8, desc:'Zeitungen, Kartons, Papier',active:true},
+      {id:'pfand',    label:'Pfandflaschen', emoji:'♻️',price:'Kostenlos',free:true, maxKisten:6, desc:'Einweg & Mehrweg',active:true}
+    ],
+    stadtteile:['Altona-Altstadt','Altona-Nord','Bahrenfeld','Ottensen','Eimsbüttel','Eppendorf','Hoheluft-West','Lokstedt','Barmbek-Nord','Barmbek-Süd','Uhlenhorst','Winterhude','Groß-Borstel','Niendorf','Eilbek','Wandsbek'],
+    slotDuration:60
+  };
+}
+
+// ── SLOTS ─────────────────────────────────────────────
+function getSlots(){try{return JSON.parse(localStorage.getItem(SK))||defSlots();}catch(e){return defSlots();}}
+function saveSlots(c){localStorage.setItem(SK,JSON.stringify(c));}
+function defSlots(){
+  const t5=['08:00–10:00','10:00–12:00','12:00–14:00','14:00–16:00','16:00–18:00'];
+  const t3=['08:00–10:00','10:00–12:00','12:00–14:00'];
+  const c={};
+  DAYS.forEach(d=>{c[d]={};(d==='Sa'?t3:t5).forEach(s=>{c[d][s]={active:true};});});
+  return c;
+}
+function getBookings(){try{return JSON.parse(localStorage.getItem(BK))||{};}catch(e){return{};}}
+function bKey(d,s){return`${d}__${s}`;}
+function isBooked(d,s){return !!getBookings()[bKey(d,s)];}
+
+// ── AUTH ──────────────────────────────────────────────
+function login(){
+  const pw=document.getElementById('pw').value;
+  if(pw===(localStorage.getItem(PK)||DEFAULT_PW)){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('shell').style.display='flex';
+    buildAll();
+  } else {document.getElementById('login-err').style.display='block';}
+}
+function logout(){document.getElementById('login-screen').style.display='flex';document.getElementById('shell').style.display='none';document.getElementById('pw').value='';}
+document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
+
+function buildAll(){buildSlotMgr();buildSvcEditor();buildStadtteilEditor();buildBookings();loadSettings();}
+
+// ── TABS ──────────────────────────────────────────────
+function showTab(name,btn){
+  ['slots','services','stadtteile','bookings','settings'].forEach(t=>document.getElementById('tab-'+t).classList.toggle('hidden',t!==name));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  if(name==='bookings')buildBookings();
+  if(name==='slots')buildSlotMgr();
+}
+
+// ── SLOT MANAGER ──────────────────────────────────────
+function buildSlotMgr(){
+  const cfg=getSlots();const bks=getBookings();
+  const dur=parseInt(localStorage.getItem(DK)||60);
+  let html='';
+  DAYS.forEach(day=>{
+    const slots=cfg[day]||{};const keys=Object.keys(slots);
+    html+=`<div class="day-wrap"><div class="day-hd"><div class="day-name">${DN[day]}</div><div class="day-btns">
+      <button class="btn btn-teal" onclick="showAdd('${day}')">+ Slot</button>
+      <button class="btn btn-green" onclick="enableDay('${day}')">Alle an</button>
+      <button class="btn btn-red" onclick="disableDay('${day}')">Alle aus</button>
+    </div></div>`;
+    if(!keys.length){html+=`<div style="font-size:.84rem;color:var(--c-muted);padding:8px 0 14px">Keine Slots – klicke "+ Slot".</div>`;}
+    else{
+      html+=`<table class="tbl"><thead><tr><th>Uhrzeit</th><th>Dauer</th><th>Status</th><th>Gebucht</th><th>Aktionen</th></tr></thead><tbody>`;
+      keys.forEach(slot=>{
+        const active=slots[slot]?.active;const booked=isBooked(day,slot);
+        const info=booked?bks[bKey(day,slot)]:null;
+        let badge,acts;
+        if(booked){badge=`<span class="badge badge-booked">📌 Gebucht</span>`;acts=`<button class="btn btn-unbook" onclick="unbook('${day}','${slot}')">Stornieren</button><button class="btn btn-del" onclick="delSlot('${day}','${slot}')">✕</button>`;}
+        else if(active){badge=`<span class="badge badge-on">● Aktiv</span>`;acts=`<button class="btn btn-red" onclick="toggleSlot('${day}','${slot}',false)">Deaktivieren</button><button class="btn btn-del" onclick="delSlot('${day}','${slot}')">✕</button>`;}
+        else{badge=`<span class="badge badge-off">○ Inaktiv</span>`;acts=`<button class="btn btn-green" onclick="toggleSlot('${day}','${slot}',true)">Aktivieren</button><button class="btn btn-del" onclick="delSlot('${day}','${slot}')">✕</button>`;}
+        const who=info?`<span style="font-size:.8rem;color:var(--c-muted)">${info.name||'–'}</span>`:'–';
+        html+=`<tr><td><strong>${slot} Uhr</strong></td><td><span style="font-size:.8rem;color:var(--c-muted)">${dur} Min.</span></td><td>${badge}</td><td>${who}</td><td>${acts}</td></tr>`;
+      });
+      html+=`</tbody></table>`;
+    }
+    html+=`<div class="add-row hidden" id="add-${day}">
+      <input class="add-inp" id="add-i-${day}" type="text" placeholder="09:00–11:00" maxlength="12" onkeydown="if(event.key==='Enter')confirmAdd('${day}')"/>
+      <button class="btn btn-teal" onclick="confirmAdd('${day}')">Hinzufügen</button>
+      <button class="btn" style="background:var(--c-bg);color:var(--c-muted)" onclick="hideAdd('${day}')">Abbrechen</button>
+      <span class="add-hint">Format: HH:MM–HH:MM</span>
+    </div><hr style="border:none;border-top:1px solid var(--c-border);margin:20px 0"/></div>`;
+  });
+  document.getElementById('slot-mgr').innerHTML=html;
+}
+function toggleSlot(d,s,a){const c=getSlots();if(c[d]&&c[d][s]!==undefined){c[d][s].active=a;saveSlots(c);buildSlotMgr();toast(a?`✓ ${s} aktiviert`:`✗ ${s} deaktiviert`);}}
+function delSlot(d,s){if(!confirm(`Slot "${s} Uhr" löschen?`))return;const c=getSlots();if(c[d]){delete c[d][s];saveSlots(c);buildSlotMgr();toast('Slot gelöscht');}}
+function enableDay(d){const c=getSlots();Object.keys(c[d]||{}).forEach(s=>{if(!isBooked(d,s))c[d][s].active=true;});saveSlots(c);buildSlotMgr();toast(`${DN[d]}: alle Slots aktiviert`);}
+function disableDay(d){const c=getSlots();Object.keys(c[d]||{}).forEach(s=>{if(!isBooked(d,s))c[d][s].active=false;});saveSlots(c);buildSlotMgr();toast(`${DN[d]}: alle Slots deaktiviert`);}
+function showAdd(d){document.getElementById('add-'+d).classList.remove('hidden');document.getElementById('add-i-'+d).focus();}
+function hideAdd(d){document.getElementById('add-'+d).classList.add('hidden');document.getElementById('add-i-'+d).value='';}
+function confirmAdd(d){
+  const val=document.getElementById('add-i-'+d).value.trim();
+  if(!/^\d{2}:\d{2}–\d{2}:\d{2}$/.test(val)){toast('⚠️ Format: HH:MM–HH:MM');return;}
+  const c=getSlots();if(!c[d])c[d]={};if(c[d][val]){toast('Slot existiert bereits.');return;}
+  c[d][val]={active:true};
+  const sorted={};Object.keys(c[d]).sort().forEach(k=>{sorted[k]=c[d][k];});c[d]=sorted;
+  saveSlots(c);buildSlotMgr();toast(`✓ Slot ${val} Uhr hinzugefügt`);
+}
+function unbook(d,s){
+  if(!confirm(`Buchung ${s} Uhr am ${DN[d]} stornieren?`))return;
+  const b=getBookings();delete b[bKey(d,s)];localStorage.setItem(BK,JSON.stringify(b));
+  buildSlotMgr();buildBookings();toast('Buchung storniert – Slot wieder frei');
+}
+
+// ── SERVICE EDITOR ────────────────────────────────────
+function buildSvcEditor(){
+  const cfg=getConfig();
+  document.getElementById('svc-editor').innerHTML=cfg.services.map((s,i)=>`
+    <div class="svc-editor-card ${s.active?'is-active':''}">
+      <div class="svc-ed-head"><span class="svc-ed-emoji">${s.emoji}</span><div class="svc-ed-title">${s.label}</div></div>
+      <div class="svc-ed-field"><label>Emoji</label><input type="text" id="sed-emoji-${i}" value="${s.emoji}" maxlength="2"/></div>
+      <div class="svc-ed-field"><label>Name</label><input type="text" id="sed-label-${i}" value="${s.label}"/></div>
+      <div class="svc-ed-field"><label>Beschreibung</label><input type="text" id="sed-desc-${i}" value="${s.desc}"/></div>
+      <div class="svc-ed-field"><label>Preis (z.B. "5 €" oder "Kostenlos")</label><input type="text" id="sed-price-${i}" value="${s.price}"/></div>
+      <div class="svc-ed-field"><label>Max. Menge (Kisten)</label><input type="number" id="sed-max-${i}" value="${s.maxKisten}" min="1" max="50"/></div>
+      <div class="svc-toggle">
+        <input type="checkbox" id="sed-free-${i}" ${s.free?'checked':''}/>
+        <label for="sed-free-${i}">Kostenlos (Preis ignorieren)</label>
+      </div>
+      <div class="svc-toggle">
+        <input type="checkbox" id="sed-active-${i}" ${s.active?'checked':''}/>
+        <label for="sed-active-${i}">Service anzeigen & buchbar</label>
+      </div>
+    </div>`).join('');
+}
+function saveServices(){
+  const cfg=getConfig();
+  cfg.services=cfg.services.map((s,i)=>({
+    ...s,
+    emoji: document.getElementById(`sed-emoji-${i}`).value||s.emoji,
+    label: document.getElementById(`sed-label-${i}`).value||s.label,
+    desc:  document.getElementById(`sed-desc-${i}`).value||s.desc,
+    price: document.getElementById(`sed-price-${i}`).value||s.price,
+    maxKisten: parseInt(document.getElementById(`sed-max-${i}`).value)||s.maxKisten,
+    free:  document.getElementById(`sed-free-${i}`).checked,
+    active:document.getElementById(`sed-active-${i}`).checked,
+  }));
+  saveConfig(cfg);buildSvcEditor();
+  const ok=document.getElementById('svc-ok');ok.style.display='inline';setTimeout(()=>ok.style.display='none',2500);
+  toast('✓ Services gespeichert');
+}
+
+// ── STADTTEILE ────────────────────────────────────────
+let tempStadtteile=[];
+function buildStadtteilEditor(){
+  tempStadtteile=[...getConfig().stadtteile].sort();
+  renderChips();
+}
+function renderChips(){
+  document.getElementById('stadtteil-chips').innerHTML=tempStadtteile.map((s,i)=>
+    `<div class="stadtteil-chip">${s}<button onclick="removeStadtteil(${i})" title="Entfernen">✕</button></div>`
+  ).join('');
+}
+function removeStadtteil(i){tempStadtteile.splice(i,1);renderChips();}
+function addStadtteil(){
+  const val=document.getElementById('new-stadtteil').value.trim();
+  if(!val)return;
+  if(tempStadtteile.includes(val)){toast('Stadtteil bereits vorhanden');return;}
+  tempStadtteile.push(val);tempStadtteile.sort();
+  document.getElementById('new-stadtteil').value='';
+  renderChips();toast(`✓ ${val} hinzugefügt`);
+}
+function saveStadtteile(){
+  const cfg=getConfig();cfg.stadtteile=tempStadtteile;saveConfig(cfg);
+  const ok=document.getElementById('st-ok');ok.style.display='inline';setTimeout(()=>ok.style.display='none',2500);
+  toast('✓ Stadtteile gespeichert');
+}
+
+// ── BOOKINGS ──────────────────────────────────────────
+function buildBookings(){
+  const bks=getBookings();const keys=Object.keys(bks);
+  document.getElementById('stats').innerHTML=`
+    <div class="stat"><div class="stat-n">${keys.length}</div><div class="stat-l">Buchungen gesamt</div></div>
+    <div class="stat"><div class="stat-n">${keys.filter(k=>k.startsWith('Sa__')).length}</div><div class="stat-l">Samstag</div></div>
+    <div class="stat"><div class="stat-n">${keys.filter(k=>!k.startsWith('Sa__')).length}</div><div class="stat-l">Unter der Woche</div></div>`;
+  if(!keys.length){document.getElementById('bookings-list').innerHTML='<div class="empty"><div class="empty-ico">📭</div>Noch keine Buchungen.</div>';return;}
+  let html=`<table class="tbl"><thead><tr><th>Tag & Slot</th><th>Name</th><th>Gebucht am</th><th>Aktion</th></tr></thead><tbody>`;
+  keys.forEach(k=>{
+    const[day,slot]=k.split('__');const i=bks[k];
+    const ts=i.ts?new Date(i.ts).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'–';
+    html+=`<tr><td><strong>${DN[day]||day}</strong><br><span style="font-size:.8rem;color:var(--c-muted)">${slot} Uhr</span></td><td>${i.name||'–'}</td><td style="font-size:.82rem;color:var(--c-muted)">${ts}</td><td><button class="btn btn-unbook" onclick="unbook('${day}','${slot}')">Stornieren</button></td></tr>`;
+  });
+  html+='</tbody></table>';
+  document.getElementById('bookings-list').innerHTML=html;
+}
+
+// ── SETTINGS ──────────────────────────────────────────
+function loadSettings(){
+  const dur=parseInt(localStorage.getItem(DK)||60);
+  document.getElementById('slot-dur').value=dur;
+  document.getElementById('wa-num').value=localStorage.getItem(WK)||'';
+  document.getElementById('target-email').value=localStorage.getItem(EK)||'altglas@dominik-sothmann.de';
+}
+function saveSettings(){
+  const np=document.getElementById('new-pw').value.trim();
+  if(np)localStorage.setItem(PK,np);
+  const dur=document.getElementById('slot-dur').value;
+  localStorage.setItem(DK,dur);
+  const cfg=getConfig();cfg.slotDuration=parseInt(dur);saveConfig(cfg);
+  localStorage.setItem(WK,document.getElementById('wa-num').value.trim());
+  localStorage.setItem(EK,document.getElementById('target-email').value.trim());
+  const ok=document.getElementById('set-ok');ok.style.display='inline';setTimeout(()=>ok.style.display='none',2500);
+  toast('✓ Einstellungen gespeichert');
+}
+function clearBookings(){if(!confirm('Wirklich alle Buchungen löschen?'))return;localStorage.removeItem(BK);buildSlotMgr();buildBookings();toast('Alle Buchungen gelöscht');}
+function resetSlots(){if(!confirm('Slots zurücksetzen?'))return;saveSlots(defSlots());buildSlotMgr();toast('Slots zurückgesetzt');}
+function resetConfig(){if(!confirm('Komplette Config zurücksetzen (Services + Stadtteile)?'))return;saveConfig(defConfig());buildAll();toast('Config zurückgesetzt');}
+
+// ── TOAST ─────────────────────────────────────────────
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+</script>
+</body>
+</html>
