@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
+  <title>GlasAbholer – Altglas & Pfand abholen lassen in Hamburg</title>
+  <meta name="description" content="Altglas und Pfandflaschen bequem zuhause abholen lassen in Hamburg. Online buchen auf glasabholer.de"/>
+  <meta property="og:title" content="GlasAbholer Hamburg"/>
+  <meta property="og:description" content="Kein Schleppen. Wir holen dein Altglas direkt ab."/>
+  <meta property="og:url" content="https://glasabholer.de"/>
+  <meta name="theme-color" content="#00B5A6"/>
+  <link rel="canonical" href="https://glasabholer.de"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+/* ─── CI TOKENS ─────────────────────────────────── */
+:root {
+  --c-white:   #FFFFFF;
+  --c-bg:      #F5F5F7;
+  --c-ink:     #1C1C1E;
+  --c-ink2:    #3A3A3C;
+  --c-muted:   #86868B;
+  --c-teal:    #00B5A6;
+  --c-teal-d:  #009E90;
+  --c-teal-l:  #E0F7F5;
+  --c-border:  #E5E5EA;
+
+  --f-head: 'Bricolage Grotesque', sans-serif;
+  --f-body: 'DM Sans', sans-serif;
+
+  --r-sm:  8px;
+  --r-md:  14px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+
+  --sh-card: 0 2px 16px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.04);
+  --sh-lift: 0 8px 40px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
+}
+
+/* ─── RESET ─────────────────────────────────────── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0 }
+html { scroll-behavior:smooth }
+body { font-family:var(--f-body); background:var(--c-white); color:var(--c-ink); line-height:1.6; -webkit-font-smoothing:antialiased }
+img  { display:block; max-width:100% }
+a    { color:inherit; text-decoration:none }
+button { cursor:pointer; font-family:inherit; border:none }
+
+/* ─── NAV ────────────────────────────────────────── */
+.nav {
+  position: sticky; top:0; z-index:100;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--c-border);
+}
+.nav-inner {
+  max-width: 1080px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  height:56px; padding:0 24px;
+}
+.nav-logo {
+  display:flex; align-items:center; gap:9px;
+  font-family:var(--f-head); font-weight:700; font-size:1.05rem;
+  color:var(--c-ink); letter-spacing:-.02em;
+}
+.nav-logo-mark {
+  width:30px; height:30px; border-radius:8px;
+  background:var(--c-teal); display:flex; align-items:center;
+  justify-content:center; font-size:15px;
+}
+.nav-links { display:flex; gap:28px }
+.nav-links a {
+  font-size:.875rem; font-weight:500; color:var(--c-muted);
+  transition:color .18s;
+}
+.nav-links a:hover { color:var(--c-ink) }
+.nav-cta {
+  background:var(--c-teal); color:var(--c-white);
+  border-radius:var(--r-sm); padding:8px 20px;
+  font-size:.875rem; font-weight:600;
+  transition:background .18s, transform .18s;
+}
+.nav-cta:hover { background:var(--c-teal-d); transform:translateY(-1px) }
+@media(max-width:640px){ .nav-links { display:none } }
+
+/* ─── HERO ───────────────────────────────────────── */
+.hero {
+  padding: 96px 24px 100px;
+  text-align:center;
+  background: var(--c-white);
+  position:relative; overflow:hidden;
+}
+.hero-glow {
+  position:absolute; top:-120px; left:50%; transform:translateX(-50%);
+  width:600px; height:600px; border-radius:50%;
+  background: radial-gradient(circle, rgba(0,181,166,.10) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-icon {
+  width:80px; height:80px; border-radius:22px;
+  background:var(--c-teal-l); display:flex; align-items:center;
+  justify-content:center; font-size:36px; margin:0 auto 36px;
+  animation: heroFloat 3.2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(0,181,166,.3);
+}
+@keyframes heroFloat {
+  0%,100% { transform:translateY(0); box-shadow:0 0 0 0 rgba(0,181,166,.2) }
+  50%      { transform:translateY(-6px); box-shadow:0 12px 32px rgba(0,181,166,.15) }
+}
+.hero h1 {
+  font-family:var(--f-head); font-weight:800;
+  font-size:clamp(2.6rem, 6.5vw, 4.4rem);
+  line-height:1.06; letter-spacing:-.03em;
+  color:var(--c-ink); max-width:720px; margin:0 auto 20px;
+}
+.hero h1 .accent { color:var(--c-teal) }
+.hero-sub {
+  font-size:clamp(1rem,2.5vw,1.2rem); color:var(--c-muted);
+  max-width:480px; margin:0 auto 40px; line-height:1.65;
+}
+.hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap }
+.btn-primary {
+  background:var(--c-teal); color:var(--c-white);
+  border-radius:var(--r-md); padding:15px 32px;
+  font-size:1rem; font-weight:600;
+  display:inline-flex; align-items:center; gap:8px;
+  transition:background .2s, transform .18s, box-shadow .2s;
+  box-shadow:0 4px 20px rgba(0,181,166,.28);
+}
+.btn-primary:hover { background:var(--c-teal-d); transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,181,166,.35) }
+.btn-outline {
+  background:transparent; color:var(--c-ink);
+  border:1.5px solid var(--c-border); border-radius:var(--r-md);
+  padding:14px 28px; font-size:1rem; font-weight:600;
+  display:inline-flex; align-items:center; gap:8px;
+  transition:border-color .2s, background .2s, transform .18s;
+}
+.btn-outline:hover { border-color:var(--c-teal); background:var(--c-teal-l); transform:translateY(-2px) }
+.trust-pills {
+  display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:44px;
+}
+.pill {
+  background:var(--c-bg); border:1px solid var(--c-border);
+  border-radius:999px; padding:6px 16px;
+  font-size:.8rem; font-weight:500; color:var(--c-ink2);
+  display:flex; align-items:center; gap:6px;
+}
+.pill-dot { width:7px; height:7px; border-radius:50%; background:var(--c-teal); flex-shrink:0 }
+
+/* ─── SECTION WRAPPER ────────────────────────────── */
+.section { padding:88px 24px }
+.section-alt { background:var(--c-bg) }
+.section-inner { max-width:1080px; margin:0 auto }
+.eyebrow {
+  font-size:.72rem; font-weight:700; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--c-teal);
+  margin-bottom:10px; display:block;
+}
+.section-title {
+  font-family:var(--f-head); font-weight:800;
+  font-size:clamp(1.8rem,4vw,2.8rem);
+  letter-spacing:-.025em; color:var(--c-ink);
+  line-height:1.1; margin-bottom:48px;
+}
+.section-title.center { text-align:center }
+.section-title.center + .section-sub { text-align:center }
+.section-sub {
+  font-size:1rem; color:var(--c-muted); margin-top:-36px;
+  margin-bottom:52px; line-height:1.65; max-width:520px;
+}
+.section-sub.center { margin-left:auto; margin-right:auto }
+
+/* ─── HOW IT WORKS ───────────────────────────────── */
+.steps-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+.step-card {
+  background:var(--c-white); border-radius:var(--r-lg);
+  padding:32px 28px; border:1px solid var(--c-border);
+  transition:box-shadow .25s, transform .22s;
+  position:relative;
+}
+.step-card:hover { box-shadow:var(--sh-lift); transform:translateY(-4px) }
+.step-num {
+  font-family:var(--f-head); font-size:.7rem; font-weight:700;
+  color:var(--c-teal); letter-spacing:.1em; text-transform:uppercase;
+  margin-bottom:16px; display:block;
+}
+.step-icon-wrap {
+  width:48px; height:48px; border-radius:var(--r-sm);
+  background:var(--c-teal-l); display:flex; align-items:center;
+  justify-content:center; font-size:22px; margin-bottom:18px;
+}
+.step-card h3 {
+  font-family:var(--f-head); font-size:1.05rem; font-weight:700;
+  color:var(--c-ink); margin-bottom:8px; letter-spacing:-.015em;
+}
+.step-card p { font-size:.875rem; color:var(--c-muted); line-height:1.6 }
+
+/* ─── SERVICE CARDS ──────────────────────────────── */
+.service-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:20px;
+}
+@media(max-width:580px){ .service-grid { grid-template-columns:1fr } }
+.service-card {
+  background:var(--c-white); border-radius:var(--r-xl);
+  padding:40px 36px; border:1px solid var(--c-border);
+  transition:box-shadow .25s, transform .22s; position:relative;
+  overflow:hidden;
+}
+.service-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:var(--c-teal); border-radius:var(--r-xl) var(--r-xl) 0 0;
+}
+.service-card:hover { box-shadow:var(--sh-lift); transform:translateY(-4px) }
+.svc-price-tag {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--c-teal-l); color:var(--c-teal);
+  border-radius:var(--r-sm); padding:5px 14px;
+  font-size:.8rem; font-weight:700; margin-bottom:24px;
+}
+.svc-emoji { font-size:2.8rem; margin-bottom:16px; display:block }
+.service-card h3 {
+  font-family:var(--f-head); font-size:1.4rem; font-weight:800;
+  letter-spacing:-.02em; margin-bottom:8px;
+}
+.service-card p { font-size:.9rem; color:var(--c-muted); margin-bottom:24px; line-height:1.6 }
+.svc-features { list-style:none; display:flex; flex-direction:column; gap:8px }
+.svc-features li {
+  font-size:.875rem; color:var(--c-ink2);
+  display:flex; align-items:center; gap:10px;
+}
+.svc-features li::before {
+  content:''; width:18px; height:18px; border-radius:50%;
+  background:var(--c-teal-l); flex-shrink:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 9l3.5 3.5L14 6' stroke='%2300B5A6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size:contain;
+}
+
+/* ─── BOOKING ────────────────────────────────────── */
+.booking-outer { background:var(--c-bg); padding:88px 24px }
+.booking-inner { max-width:720px; margin:0 auto }
+.booking-card {
+  background:var(--c-white); border-radius:var(--r-xl);
+  box-shadow:var(--sh-lift); border:1px solid var(--c-border);
+  overflow:hidden;
+}
+
+/* progress */
+.prog-bar {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  background:var(--c-bg); border-bottom:1px solid var(--c-border);
+}
+.prog-step {
+  padding:14px 8px; text-align:center;
+  font-size:.75rem; font-weight:700; color:var(--c-muted);
+  border-bottom:2px solid transparent; transition:all .25s;
+  letter-spacing:.01em;
+}
+.prog-step.is-active { color:var(--c-teal); border-bottom-color:var(--c-teal); background:var(--c-white) }
+.prog-step.is-done   { color:var(--c-ink2) }
+
+/* panels */
+.fpanel { display:none; padding:40px 40px 36px }
+.fpanel.is-active { display:block }
+@media(max-width:560px){ .fpanel { padding:28px 20px 24px } }
+.fpanel-title {
+  font-family:var(--f-head); font-weight:800; font-size:1.4rem;
+  letter-spacing:-.025em; color:var(--c-ink); margin-bottom:4px;
+}
+.fpanel-sub { font-size:.875rem; color:var(--c-muted); margin-bottom:28px }
+
+/* svc picker */
+.svc-pick-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px }
+@media(max-width:420px){ .svc-pick-grid { grid-template-columns:1fr } }
+.svc-pick {
+  border:2px solid var(--c-border); border-radius:var(--r-lg);
+  padding:22px 18px; cursor:pointer; background:var(--c-white);
+  transition:border-color .2s, background .2s, transform .18s;
+  position:relative; text-align:left;
+}
+.svc-pick:hover { border-color:var(--c-teal); transform:translateY(-2px) }
+.svc-pick.is-sel { border-color:var(--c-teal); background:var(--c-teal-l) }
+.svc-pick-check {
+  position:absolute; top:12px; right:12px;
+  width:22px; height:22px; border-radius:50%;
+  background:var(--c-teal); display:none; align-items:center;
+  justify-content:center; color:#fff; font-size:12px; font-weight:700;
+}
+.svc-pick.is-sel .svc-pick-check { display:flex }
+.svc-pick-em { font-size:1.8rem; margin-bottom:10px; display:block }
+.svc-pick-name { font-family:var(--f-head); font-size:.95rem; font-weight:700; margin-bottom:3px }
+.svc-pick-desc { font-size:.78rem; color:var(--c-muted); margin-bottom:10px }
+.svc-pick-price {
+  display:inline-block; border-radius:999px;
+  padding:2px 11px; font-size:.75rem; font-weight:700;
+}
+.svc-pick-price.paid { background:var(--c-teal-l); color:var(--c-teal) }
+.svc-pick-price.free { background:#e8f9f8; color:#00917f }
+
+/* form fields */
+.fld { margin-bottom:16px }
+.fld label {
+  display:block; font-size:.8rem; font-weight:600;
+  color:var(--c-ink2); margin-bottom:6px;
+}
+.fld select, .fld input, .fld textarea {
+  width:100%; border:1.5px solid var(--c-border);
+  border-radius:var(--r-md); padding:12px 14px;
+  font-family:var(--f-body); font-size:.95rem;
+  color:var(--c-ink); background:var(--c-white);
+  outline:none; transition:border-color .2s, box-shadow .2s;
+  appearance:none;
+}
+.fld select:focus, .fld input:focus, .fld textarea:focus {
+  border-color:var(--c-teal); box-shadow:0 0 0 3px rgba(0,181,166,.12);
+}
+.fld.is-err select, .fld.is-err input { border-color:#FF3B30 }
+.fld-err { font-size:.76rem; color:#FF3B30; margin-top:5px; display:none }
+.fld.is-err .fld-err { display:block }
+.fld textarea { resize:vertical; min-height:86px }
+.row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px }
+@media(max-width:460px){ .row2 { grid-template-columns:1fr } }
+
+/* slot grid */
+.slot-wrap { margin-bottom:16px }
+.slot-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:9px;
+}
+@media(max-width:380px){ .slot-grid { grid-template-columns:repeat(2,1fr) } }
+.slot-btn {
+  border:1.5px solid var(--c-border); background:var(--c-white);
+  border-radius:var(--r-md); padding:12px 6px;
+  font-size:.84rem; font-weight:600; color:var(--c-muted);
+  transition:all .2s; line-height:1.3;
+}
+.slot-btn:hover:not(:disabled):not(.is-booked) {
+  border-color:var(--c-teal); color:var(--c-teal); transform:translateY(-1px);
+}
+.slot-btn.is-sel { border-color:var(--c-teal); background:var(--c-teal); color:#fff }
+.slot-btn.is-booked {
+  background:var(--c-bg); color:var(--c-border);
+  border-color:var(--c-border); cursor:not-allowed;
+  text-decoration:line-through;
+}
+.slot-btn:disabled { opacity:.35; cursor:not-allowed }
+.slot-sub { font-size:.7rem; display:block; font-weight:500; margin-top:2px }
+
+/* nav btns */
+.frow {
+  display:flex; justify-content:space-between;
+  align-items:center; margin-top:28px; gap:12px;
+}
+.btn-back {
+  background:none; border:1.5px solid var(--c-border);
+  color:var(--c-muted); border-radius:var(--r-md);
+  padding:11px 22px; font-size:.9rem; font-weight:600;
+  transition:all .2s;
+}
+.btn-back:hover { border-color:var(--c-teal); color:var(--c-ink) }
+.btn-next {
+  background:var(--c-teal); color:#fff;
+  border-radius:var(--r-md); padding:12px 30px;
+  font-size:.95rem; font-weight:600;
+  box-shadow:0 3px 14px rgba(0,181,166,.22);
+  margin-left:auto; transition:all .2s;
+}
+.btn-next:hover { background:var(--c-teal-d); transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,181,166,.3) }
+
+/* summary */
+.summary-box {
+  background:var(--c-bg); border-radius:var(--r-md);
+  padding:18px 20px; margin-bottom:22px;
+  border:1px solid var(--c-border);
+}
+.summary-box h4 {
+  font-size:.7rem; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--c-teal); margin-bottom:12px;
+}
+.sum-row {
+  display:flex; justify-content:space-between;
+  font-size:.875rem; padding:5px 0;
+  border-bottom:1px solid var(--c-border);
+}
+.sum-row:last-child { border-bottom:none }
+.sum-row span:first-child { color:var(--c-muted) }
+.sum-row span:last-child  { font-weight:600 }
+
+/* inline error */
+.inline-err { font-size:.8rem; color:#FF3B30; margin-bottom:10px; display:none }
+
+/* success */
+.success-panel {
+  display:none; padding:56px 40px; text-align:center;
+}
+@media(max-width:560px){ .success-panel { padding:40px 20px } }
+.success-icon {
+  width:80px; height:80px; border-radius:50%;
+  background:var(--c-teal-l); display:flex; align-items:center;
+  justify-content:center; font-size:2.2rem;
+  margin:0 auto 22px; animation:popIn .4s cubic-bezier(.175,.885,.32,1.275);
+}
+@keyframes popIn { from { transform:scale(.5); opacity:0 } to { transform:scale(1); opacity:1 } }
+.success-panel h3 {
+  font-family:var(--f-head); font-size:1.6rem; font-weight:800;
+  letter-spacing:-.025em; margin-bottom:10px;
+}
+.success-panel p { color:var(--c-muted); font-size:.95rem; max-width:380px; margin:0 auto 28px }
+.btn-reset {
+  background:var(--c-teal); color:#fff; border-radius:var(--r-md);
+  padding:13px 28px; font-size:.95rem; font-weight:600;
+  transition:all .2s; box-shadow:0 3px 14px rgba(0,181,166,.22);
+}
+.btn-reset:hover { background:var(--c-teal-d); transform:translateY(-1px) }
+
+/* ─── FOOTER ─────────────────────────────────────── */
+.footer {
+  background:var(--c-ink); color:rgba(255,255,255,.55);
+  padding:52px 24px;
+}
+.footer-inner {
+  max-width:1080px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr; gap:40px;
+  align-items:start;
+}
+@media(max-width:580px){ .footer-inner { grid-template-columns:1fr } }
+.foot-logo {
+  font-family:var(--f-head); font-size:1.15rem; font-weight:800;
+  color:#fff; display:flex; align-items:center; gap:8px; margin-bottom:10px;
+}
+.foot-logo-dot {
+  width:26px; height:26px; border-radius:7px;
+  background:var(--c-teal); display:flex; align-items:center;
+  justify-content:center; font-size:13px;
+}
+.foot-tagline { font-size:.85rem; line-height:1.6; margin-bottom:18px }
+.foot-email a {
+  color:var(--c-teal); font-size:.875rem; font-weight:500;
+}
+.foot-links { display:flex; flex-direction:column; gap:10px; align-items:flex-end }
+@media(max-width:580px){ .foot-links { align-items:flex-start } }
+.foot-links a {
+  font-size:.84rem; color:rgba(255,255,255,.4);
+  transition:color .18s;
+}
+.foot-links a:hover { color:rgba(255,255,255,.85) }
+.foot-copy {
+  max-width:1080px; margin:32px auto 0;
+  padding-top:24px; border-top:1px solid rgba(255,255,255,.08);
+  font-size:.75rem; color:rgba(255,255,255,.22);
+}
+
+/* ─── WhatsApp FAB ───────────────────────────────── */
+.wa-fab {
+  position:fixed; bottom:24px; right:24px;
+  width:54px; height:54px; border-radius:50%;
+  background:#25D366; display:flex; align-items:center;
+  justify-content:center; z-index:200;
+  box-shadow:0 4px 18px rgba(37,211,102,.38);
+  transition:transform .2s, box-shadow .2s;
+}
+.wa-fab:hover { transform:scale(1.1); box-shadow:0 8px 28px rgba(37,211,102,.5) }
+.wa-fab svg { width:26px; height:26px; fill:#fff }
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:768px){
+  .section { padding:64px 20px }
+  .booking-outer { padding:64px 16px }
+}
+@media(prefers-reduced-motion:reduce){
+  *, *::before, *::after { animation:none!important; transition:none!important }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════ -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="https://glasabholer.de" class="nav-logo">
+      <div class="nav-logo-mark">♻️</div>
+      GlasAbholer
+    </a>
+    <nav class="nav-links">
+      <a href="#wie-es-geht">So geht's</a>
+      <a href="#preise">Preise</a>
+      <a href="#buchen">Termin buchen</a>
+    </nav>
+    <a href="#buchen" class="nav-cta">Jetzt buchen</a>
+  </div>
+</header>
+
+<!-- ══ HERO ═════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-icon">♻️</div>
+  <h1>Altglas weg —<br>ohne <span class="accent">einen Schritt.</span></h1>
+  <p class="hero-sub">Kein Schleppen. Kein Container suchen. Einfach online buchen und dein Glas vor die Tür stellen.</p>
+  <div class="hero-actions">
+    <a href="#buchen" class="btn-primary">Termin buchen</a>
+    <a href="#wie-es-geht" class="btn-outline">So funktioniert's</a>
+  </div>
+  <div class="trust-pills">
+    <div class="pill"><div class="pill-dot"></div>Altglas ab 5 €</div>
+    <div class="pill"><div class="pill-dot"></div>Pfand kostenlos</div>
+    <div class="pill"><div class="pill-dot"></div>Buchung in 2 Min.</div>
+    <div class="pill"><div class="pill-dot"></div>Hamburg-weit</div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══════════════════════════════════ -->
+<section class="section section-alt" id="wie-es-geht">
+  <div class="section-inner">
+    <span class="eyebrow">So funktioniert's</span>
+    <h2 class="section-title">Vier Schritte.<br>Keller leer.</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">Schritt 1</span>
+        <div class="step-icon-wrap">📱</div>
+        <h3>Online buchen</h3>
+        <p>Service, Stadtteil und Wunschtermin wählen. Fertig in unter zwei Minuten.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">Schritt 2</span>
+        <div class="step-icon-wrap">✉️</div>
+        <h3>Bestätigung per Mail</h3>
+        <p>Du bekommst sofort eine Bestätigungs-E-Mail. Termin gesichert.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">Schritt 3</span>
+        <div class="step-icon-wrap">🚪</div>
+        <h3>Glas rausstellen</h3>
+        <p>Stell dein Glas vor die Tür. Du musst nicht einmal zuhause sein.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">Schritt 4</span>
+        <div class="step-icon-wrap">✅</div>
+        <h3>Fertig.</h3>
+        <p>Wir holen pünktlich ab. Kein Stress, kein Schleppen, kein Aufwand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══════════════════════════════════════ -->
+<section class="section" id="preise">
+  <div class="section-inner">
+    <span class="eyebrow">Unsere Services</span>
+    <h2 class="section-title">Was wir abholen.</h2>
+    <div class="service-grid">
+      <div class="service-card">
+        <span class="svc-emoji">🍾</span>
+        <div class="svc-price-tag">5 € pro Abholung</div>
+        <h3>Altglas</h3>
+        <p>Weinflaschen, Gläser, Konserven — egal wie viel im Keller wartet.</p>
+        <ul class="svc-features">
+          <li>Alle Glasarten</li>
+          <li>Egal wie viele Flaschen</li>
+          <li>Zahlung bei Abholung</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="svc-emoji">♻️</span>
+        <div class="svc-price-tag">Kostenlos</div>
+        <h3>Pfandflaschen</h3>
+        <p>Einweg oder Mehrweg — wir holen alles ab und führen es zurück in den Kreislauf.</p>
+        <ul class="svc-features">
+          <li>Einweg & Mehrweg</li>
+          <li>Volle Kästen kein Problem</li>
+          <li>100 % kostenlos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BOOKING ════════════════════════════════════════ -->
+<div class="booking-outer" id="buchen">
+  <div class="booking-inner">
+    <span class="eyebrow" style="display:block;text-align:center;margin-bottom:10px">Termin buchen</span>
+    <h2 class="section-title center" style="margin-bottom:32px">Deinen Slot sichern.</h2>
+
+    <div class="booking-card">
+      <!-- Progress -->
+      <div class="prog-bar">
+        <div class="prog-step is-active" id="prog1">① Service</div>
+        <div class="prog-step" id="prog2">② Termin</div>
+        <div class="prog-step" id="prog3">③ Deine Daten</div>
+      </div>
+
+      <!-- PANEL 1 -->
+      <div class="fpanel is-active" id="p1">
+        <h3 class="fpanel-title">Was holen wir ab?</h3>
+        <p class="fpanel-sub">Pfandflaschen sind immer kostenlos.</p>
+        <div class="svc-pick-grid">
+          <button class="svc-pick" onclick="pickService('altglas',this)">
+            <div class="svc-pick-check">✓</div>
+            <span class="svc-pick-em">🍾</span>
+            <div class="svc-pick-name">Altglas</div>
+            <div class="svc-pick-desc">Flaschen, Gläser, Konserven</div>
+            <span class="svc-pick-price paid">5 € / Abholung</span>
+          </button>
+          <button class="svc-pick" onclick="pickService('pfand',this)">
+            <div class="svc-pick-check">✓</div>
+            <span class="svc-pick-em">♻️</span>
+            <div class="svc-pick-name">Pfandflaschen</div>
+            <div class="svc-pick-desc">Einweg & Mehrweg</div>
+            <span class="svc-pick-price free">Kostenlos</span>
+          </button>
+        </div>
+        <div class="inline-err" id="err-svc">Bitte wähle einen Service.</div>
+        <div class="frow">
+          <button class="btn-next" onclick="toStep(2)">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- PANEL 2 -->
+      <div class="fpanel" id="p2">
+        <h3 class="fpanel-title">Wann & wo?</h3>
+        <p class="fpanel-sub">Wähle Stadtteil, Wochentag und einen freien Slot.</p>
+
+        <div class="fld" id="f-stadtteil">
+          <label for="stadtteil">Hamburger Stadtteil</label>
+          <select id="stadtteil">
+            <option value="">– Stadtteil wählen –</option>
+            <optgroup label="Hamburg-Mitte">
+              <option>Altstadt</option><option>HafenCity</option>
+              <option>Hammerbrook</option><option>St. Georg</option><option>Veddel</option>
+            </optgroup>
+            <optgroup label="Altona">
+              <option>Altona-Altstadt</option><option>Altona-Nord</option>
+              <option>Bahrenfeld</option><option>Lurup</option><option>Ottensen</option>
+            </optgroup>
+            <optgroup label="Eimsbüttel">
+              <option>Eimsbüttel</option><option>Eppendorf</option>
+              <option>Hoheluft-West</option><option>Lokstedt</option><option>Rotherbaum</option>
+            </optgroup>
+            <optgroup label="Hamburg-Nord">
+              <option>Alsterdorf</option><option>Barmbek-Nord</option><option>Barmbek-Süd</option>
+              <option>Uhlenhorst</option><option>Winterhude</option>
+            </optgroup>
+            <optgroup label="Wandsbek">
+              <option>Eilbek</option><option>Farmsen-Berne</option>
+              <option>Rahlstedt</option><option>Wandsbek</option>
+            </optgroup>
+            <optgroup label="Bergedorf &amp; Harburg">
+              <option>Bergedorf</option><option>Lohbrügge</option>
+              <option>Harburg</option><option>Heimfeld</option>
+            </optgroup>
+          </select>
+          <div class="fld-err">Bitte wähle deinen Stadtteil.</div>
+        </div>
+
+        <div class="fld" id="f-tag">
+          <label for="wochentag">Wochentag</label>
+          <select id="wochentag" onchange="renderSlots()">
+            <option value="">– Tag wählen –</option>
+            <option value="Mo">Montag</option>
+            <option value="Di">Dienstag</option>
+            <option value="Mi">Mittwoch</option>
+            <option value="Do">Donnerstag</option>
+            <option value="Fr">Freitag</option>
+            <option value="Sa">Samstag</option>
+          </select>
+          <div class="fld-err">Bitte wähle einen Wochentag.</div>
+        </div>
+
+        <div class="slot-wrap">
+          <label style="font-size:.8rem;font-weight:600;color:var(--c-ink2);margin-bottom:8px;display:block">Uhrzeit</label>
+          <div class="slot-grid" id="slot-grid">
+            <div style="grid-column:1/-1;font-size:.85rem;color:var(--c-muted);padding:8px 0">
+              Bitte zuerst einen Tag wählen.
+            </div>
+          </div>
+          <div class="inline-err" id="err-slot" style="margin-top:6px">Bitte wähle eine freie Uhrzeit.</div>
+        </div>
+
+        <div class="frow">
+          <button class="btn-back" onclick="toStep(1)">← Zurück</button>
+          <button class="btn-next" onclick="toStep(3)">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- PANEL 3 -->
+      <div class="fpanel" id="p3">
+        <h3 class="fpanel-title">Fast geschafft!</h3>
+        <p class="fpanel-sub">Wir senden dir eine Bestätigung per E-Mail.</p>
+
+        <div class="summary-box">
+          <h4>Deine Buchungsübersicht</h4>
+          <div class="sum-row"><span>Service</span><span id="s-svc">–</span></div>
+          <div class="sum-row"><span>Termin</span><span id="s-termin">–</span></div>
+          <div class="sum-row"><span>Stadtteil</span><span id="s-ort">–</span></div>
+          <div class="sum-row"><span>Preis</span><span id="s-preis">–</span></div>
+        </div>
+
+        <div class="row2">
+          <div class="fld" id="f-vn">
+            <label for="vorname">Vorname</label>
+            <input type="text" id="vorname" placeholder="Max" autocomplete="given-name"/>
+            <div class="fld-err">Bitte Vorname eingeben.</div>
+          </div>
+          <div class="fld" id="f-nn">
+            <label for="nachname">Nachname</label>
+            <input type="text" id="nachname" placeholder="Mustermann" autocomplete="family-name"/>
+            <div class="fld-err">Bitte Nachname eingeben.</div>
+          </div>
+        </div>
+        <div class="fld" id="f-em">
+          <label for="email">E-Mail-Adresse</label>
+          <input type="email" id="email" placeholder="max@email.de" autocomplete="email"/>
+          <div class="fld-err">Bitte eine gültige E-Mail-Adresse eingeben.</div>
+        </div>
+        <div class="fld" id="f-adr">
+          <label for="adresse">Straße & Hausnummer</label>
+          <input type="text" id="adresse" placeholder="Musterstraße 12" autocomplete="street-address"/>
+          <div class="fld-err">Bitte Adresse eingeben.</div>
+        </div>
+        <div class="fld">
+          <label for="notiz">Hinweise (optional)</label>
+          <textarea id="notiz" placeholder="z. B. Klingel oben links, sehr viel Glas …"></textarea>
+        </div>
+
+        <div class="frow">
+          <button class="btn-back" onclick="toStep(2)">← Zurück</button>
+          <button class="btn-next" onclick="submitBooking()">Jetzt buchen ✓</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-panel" id="success-panel">
+        <div class="success-icon">✅</div>
+        <h3>Buchung bestätigt!</h3>
+        <p>Wir haben deine Anfrage erhalten und melden uns per E-Mail. Stell dein Glas einfach zum Termin raus.</p>
+        <button class="btn-reset" onclick="resetForm()">Neue Buchung starten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="foot-logo">
+        <div class="foot-logo-dot">♻️</div>
+        GlasAbholer
+      </div>
+      <p class="foot-tagline">Altglas- und Pfandflaschen-Abholung<br>direkt vor deiner Haustür in Hamburg.</p>
+      <div class="foot-email">
+        <a href="mailto:altglas@dominik-sothmann.de">altglas@dominik-sothmann.de</a>
+      </div>
+    </div>
+    <div class="foot-links">
+      <a href="https://glasabholer.de">glasabholer.de</a>
+      <a href="https://glasabholer.de/impressum">Impressum</a>
+      <a href="https://glasabholer.de/datenschutz">Datenschutz</a>
+      <a href="https://glasabholer.de/agb">AGB</a>
+      <a href="https://glasabholer.de/admin" style="color:rgba(255,255,255,.18)">Admin</a>
+    </div>
+  </div>
+  <div class="foot-copy">© 2025 GlasAbholer · glasabholer.de · Hamburg</div>
+</footer>
+
+<!-- ══ WhatsApp FAB ══════════════════════════════════ -->
+<a class="wa-fab" id="wa-fab" href="https://wa.me/49XXXXXXXXXXX" target="_blank" title="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────
+const SITE_URL    = 'https://glasabholer.de';
+const TARGET_MAIL = 'altglas@dominik-sothmann.de';
+const WA_NUM      = '49XXXXXXXXXXX'; // ← WhatsApp-Nummer eintragen
+const FORMSPREE   = 'YOUR_FORMSPREE_ID';
+
+const SK = 'ga_slots';
+const BK = 'ga_bookings';
+const DAYS = ['Mo','Di','Mi','Do','Fr','Sa'];
+const DNAMES = {Mo:'Montag',Di:'Dienstag',Mi:'Mittwoch',Do:'Donnerstag',Fr:'Freitag',Sa:'Samstag'};
+
+// ── STATE ────────────────────────────────────────────
+const ST = { svc:null, svcLabel:'', preis:'', stadtteil:'', tag:'', slot:null,
+             vorname:'', nachname:'', email:'', adresse:'', notiz:'' };
+
+// ── SLOT CONFIG ──────────────────────────────────────
+function getSlots() {
+  try { return JSON.parse(localStorage.getItem(SK)) || defaultSlots(); }
+  catch(e) { return defaultSlots(); }
+}
+function defaultSlots() {
+  const t5 = ['08:00–10:00','10:00–12:00','12:00–14:00','14:00–16:00','16:00–18:00'];
+  const t3 = ['08:00–10:00','10:00–12:00','12:00–14:00'];
+  const cfg = {};
+  DAYS.forEach(d => {
+    const slots = d==='Sa' ? t3 : t5;
+    cfg[d] = {};
+    slots.forEach(s => { cfg[d][s] = { active:true }; });
+  });
+  return cfg;
+}
+function getBookings() {
+  try { return JSON.parse(localStorage.getItem(BK)) || {}; }
+  catch(e) { return {}; }
+}
+function bKey(d,s) { return `${d}__${s}`; }
+function isBooked(d,s) { return !!getBookings()[bKey(d,s)]; }
+function markBooked(d,s,info) {
+  const b = getBookings(); b[bKey(d,s)] = info;
+  localStorage.setItem(BK, JSON.stringify(b));
+}
+
+// ── STEPS ────────────────────────────────────────────
+function toStep(n) {
+  if(n===2 && !v1()) return;
+  if(n===3 && !v2()) return;
+  if(n===3) fillSummary();
+  [1,2,3].forEach(i => {
+    document.getElementById('p'+i).classList.toggle('is-active', i===n);
+    const p = document.getElementById('prog'+i);
+    p.classList.toggle('is-active', i===n);
+    p.classList.toggle('is-done', i<n);
+  });
+  document.querySelector('.booking-card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── VALIDATE ─────────────────────────────────────────
+function v1() {
+  const e = document.getElementById('err-svc');
+  if(!ST.svc) { e.style.display='block'; return false; }
+  e.style.display='none'; return true;
+}
+function v2() {
+  ST.stadtteil = document.getElementById('stadtteil').value;
+  ST.tag       = document.getElementById('wochentag').value;
+  let ok = true;
+  fe('f-stadtteil', !ST.stadtteil);
+  fe('f-tag', !ST.tag);
+  if(!ST.stadtteil || !ST.tag) ok = false;
+  const se = document.getElementById('err-slot');
+  if(!ST.slot) { se.style.display='block'; ok=false; } else { se.style.display='none'; }
+  return ok;
+}
+function v3() {
+  const vn  = document.getElementById('vorname').value.trim();
+  const nn  = document.getElementById('nachname').value.trim();
+  const em  = document.getElementById('email').value.trim();
+  const adr = document.getElementById('adresse').value.trim();
+  let ok = true;
+  fe('f-vn',!vn); fe('f-nn',!nn); fe('f-adr',!adr);
+  const emok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+  fe('f-em',!emok);
+  if(!vn||!nn||!adr||!emok) ok=false;
+  if(ok){ ST.vorname=vn; ST.nachname=nn; ST.email=em; ST.adresse=adr;
+          ST.notiz=document.getElementById('notiz').value.trim(); }
+  return ok;
+}
+function fe(id,has) { document.getElementById(id).classList.toggle('is-err',has); }
+
+// ── SERVICE PICKER ────────────────────────────────────
+function pickService(type, el) {
+  document.querySelectorAll('.svc-pick').forEach(c=>c.classList.remove('is-sel'));
+  el.classList.add('is-sel');
+  ST.svc      = type;
+  ST.svcLabel = type==='altglas' ? 'Altglas' : 'Pfandflaschen';
+  ST.preis    = type==='altglas' ? '5 €' : 'Kostenlos';
+  document.getElementById('err-svc').style.display='none';
+}
+
+// ── RENDER SLOTS ─────────────────────────────────────
+function renderSlots() {
+  ST.slot = null;
+  ST.tag  = document.getElementById('wochentag').value;
+  const grid = document.getElementById('slot-grid');
+  if(!ST.tag) {
+    grid.innerHTML='<div style="grid-column:1/-1;font-size:.85rem;color:var(--c-muted);padding:8px 0">Bitte zuerst einen Tag wählen.</div>';
+    return;
+  }
+  const cfg   = getSlots();
+  const dayCfg = cfg[ST.tag] || {};
+  const times = Object.keys(dayCfg);
+  if(!times.length) {
+    grid.innerHTML='<div style="grid-column:1/-1;font-size:.85rem;color:var(--c-muted);padding:8px 0">Keine Slots für diesen Tag – komm bald wieder!</div>';
+    return;
+  }
+  grid.innerHTML = times.map(t => {
+    const active = dayCfg[t]?.active;
+    const booked = isBooked(ST.tag, t);
+    if(!active && !booked) return '';
+    const cls   = booked ? 'slot-btn is-booked' : 'slot-btn';
+    const dis   = booked ? 'disabled' : '';
+    const click = booked ? '' : `onclick="pickSlot(this,'${t}')"`;
+    const lbl   = booked ? '<span class="slot-sub" style="color:#ccc">Belegt</span>'
+                         : `<span class="slot-sub">${t} Uhr</span>`;
+    return `<button class="${cls}" ${dis} ${click}>${t.split('–')[0]}<br>${lbl}</button>`;
+  }).join('');
+}
+function pickSlot(btn, t) {
+  document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('is-sel'));
+  btn.classList.add('is-sel');
+  ST.slot = t;
+  document.getElementById('err-slot').style.display='none';
+}
+
+// ── SUMMARY ──────────────────────────────────────────
+function fillSummary() {
+  document.getElementById('s-svc').textContent    = ST.svcLabel;
+  document.getElementById('s-termin').textContent = `${DNAMES[ST.tag]}, ${ST.slot} Uhr`;
+  document.getElementById('s-ort').textContent    = ST.stadtteil;
+  document.getElementById('s-preis').textContent  = ST.preis;
+}
+
+// ── SUBMIT ────────────────────────────────────────────
+async function submitBooking() {
+  if(!v3()) return;
+
+  const body = {
+    _subject: `Neue Buchung: ${ST.svcLabel} – ${ST.stadtteil}`,
+    _replyto:  ST.email,
+    Service:   ST.svcLabel,
+    Preis:     ST.preis,
+    Stadtteil: ST.stadtteil,
+    Tag:       DNAMES[ST.tag],
+    Uhrzeit:   ST.slot + ' Uhr',
+    Name:      `${ST.vorname} ${ST.nachname}`,
+    Email:     ST.email,
+    Adresse:   ST.adresse,
+    Hinweise:  ST.notiz || '–',
+    Quelle:    SITE_URL
+  };
+
+  // mark slot booked
+  markBooked(ST.tag, ST.slot, { name:`${ST.vorname} ${ST.nachname}`, ts:Date.now() });
+
+  // WhatsApp pre-fill
+  const waMsg = encodeURIComponent(
+    `🟢 *Neue Buchung – glasabholer.de*\n\n` +
+    `Service: ${body.Service} (${body.Preis})\n` +
+    `Name: ${body.Name}\n` +
+    `Adresse: ${body.Adresse}, ${body.Stadtteil}\n` +
+    `Termin: ${body.Tag}, ${body.Uhrzeit}\n` +
+    `Hinweise: ${body.Hinweise}\n` +
+    `E-Mail: ${body.Email}`
+  );
+  const waNum = localStorage.getItem('ga_wa') || WA_NUM;
+  document.getElementById('wa-fab').href = `https://wa.me/${waNum}?text=${waMsg}`;
+
+  // Formspree or mailto fallback
+  if(FORMSPREE !== 'YOUR_FORMSPREE_ID') {
+    try {
+      const r = await fetch(`https://formspree.io/f/${FORMSPREE}`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify(body)
+      });
+      if(!r.ok) throw new Error();
+    } catch(e) { mailtoFallback(body); }
+  } else {
+    mailtoFallback(body);
+  }
+  showSuccess();
+}
+
+function mailtoFallback(b) {
+  const txt = encodeURIComponent(
+    `Neue Buchung – glasabholer.de\n\n` +
+    `Service: ${b.Service} (${b.Preis})\nName: ${b.Name}\n` +
+    `Adresse: ${b.Adresse}, ${b.Stadtteil}\nTermin: ${b.Tag}, ${b.Uhrzeit}\n` +
+    `E-Mail: ${b.Email}\nHinweise: ${b.Hinweise}`
+  );
+  window.location.href = `mailto:${TARGET_MAIL}?subject=${encodeURIComponent(b._subject)}&body=${txt}`;
+}
+
+function showSuccess() {
+  [1,2,3].forEach(i => {
+    document.getElementById('p'+i).classList.remove('is-active');
+    document.getElementById('prog'+i).classList.add('is-done');
+    document.getElementById('prog'+i).classList.remove('is-active');
+  });
+  document.getElementById('success-panel').style.display='block';
+}
+
+function resetForm() {
+  ST.svc=ST.svcLabel=ST.preis=ST.stadtteil=ST.tag=ST.slot=null;
+  document.querySelectorAll('.svc-pick').forEach(c=>c.classList.remove('is-sel'));
+  ['stadtteil','wochentag','vorname','nachname','email','adresse','notiz']
+    .forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('success-panel').style.display='none';
+  document.getElementById('slot-grid').innerHTML=
+    '<div style="grid-column:1/-1;font-size:.85rem;color:var(--c-muted);padding:8px 0">Bitte zuerst einen Tag wählen.</div>';
+  toStep(1);
+}
+</script>
+</body>
+</html>
